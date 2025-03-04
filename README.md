@@ -100,3 +100,62 @@ mdss rmdir
 ```
 nci_account -P tr07
 ```
+
+# nf-core
+
+# nf-core_setup_gadi
+https://github.com/nf-core/configs/blob/master/docs/nci_gadi.md
+
+nci_account -P tr07
+
+
+running nf-core
+
+- needs to run on /scratch , not home or gdata
+- softlinks to data (e.g. fastqs, or references) not on scratch fail
+- screen doesn't seems to work properly between different login nodes.
+- I've been kicking of nextflow screipts via a pbs script submitted to the copyq queeue, since only the login/head nodes have internet access to pull down
+- singularity cache dir, was set up on ~/ but this filled up very quick, 
+- .nextflow directory with nf-core assets is still ~/.nextflow
+- module load nextflow singularity
+
+- example kickoff script
+qsub run.pbs.sh
+
+```
+#!/bin/bash
+
+#PBS -l ncpus=1
+#PBS -l mem=16GB
+#PBS -l jobfs=2GB
+#PBS -q copyq
+#PBS -P tr07
+#PBS -l walltime=10:00:00
+#PBS -l wd
+
+module purge
+module load nextflow singularity
+BaseDir='/scratch/tr07/dt9853/projects/20250303_CDK46_RNAseq'
+JobName='nf_RNAseq'
+RunDir=${BaseDir}/${JobName}
+OutDir=${RunDir}/outs_${JobName}
+
+cd ${RunDir}
+mkdir -p ${OutDir}
+
+nextflow run nf-core/rnaseq \
+        -profile singularity,nci_gadi \
+        -r 3.14.0 \
+        --input ${RunDir}/nfSampleSheet.csv \
+        --outdir ${OutDir} \
+        --fasta /scratch/tr07/dt9853/references/GRCh38_Ensembl/Homo_sapiens.GRCh38.dna_sm.primary_assembly.fa.gz \
+        --gtf /scratch/tr07/dt9853/references/GRCh38_Ensembl/Homo_sapiens.GRCh38.113.gtf.gz \
+        --skip_dupradar \
+        --skip_qualimap \
+        --save_reference \
+        -resume \
+> std.out_${JobName}.txt
+
+```
+
+
