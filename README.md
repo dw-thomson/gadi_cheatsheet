@@ -159,3 +159,48 @@ nextflow run nf-core/rnaseq \
 ```
 
 
+
+# Setting default project
+modify ~/.config/gadi-login.conf
+```
+PROJECT tr07
+SHELL /bin/bash
+```
+- this is read in nextflow processes
+
+## copying between projects
+- pbs header for moving data between projects
+- submit with qsub move.sh
+
+```bash
+#PBS -l mem=16GB
+#PBS -l jobfs=2GB
+#PBS -q normal
+#PBS -P dz70
+#PBS -l walltime=10:00:00
+#PBS -l storage=scratch/tr07+gdata/dz70
+#PBS -l wd
+mv -v /scratch/tr07/ /g/data/dz70/
+```
+
+# persistent sessions
+- a substitute for screen on gadi, for long running jobs with little memory
+- help page https://opus.nci.org.au/spaces/Help/pages/241927941/Persistent+Sessions...
+
+```bash
+# Starting Sessions
+persistent-sessions start [ -p <project> ] <name>
+
+# Connecting to Sessions
+ssh <name>.<user>.<project>.ps.gadi.nci.org.au
+
+# Listing Running Sessions
+persistent-sessions list [ -p <project> ] [ <uuid> ]
+
+# Terminating Sessions
+persistent-sessions kill <uuid>
+
+# finding session names
+ls -l  ~/.persistent-sessions/
+
+```
