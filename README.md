@@ -204,3 +204,49 @@ persistent-sessions kill <uuid>
 ls -l  ~/.persistent-sessions/
 
 ```
+
+# setting up rclone
+- followed these instructions
+- https://rclone.org/sftp/
+
+installed rclone on my mac
+```bash
+cd ~/Downloads
+sudo -v ; curl https://rclone.org/install.sh | sudo bash
+# ran config setup, followed prompts
+rclone config
+```
+-this was the summary messeage ofter setting up config
+```
+Configuration complete.
+Options:
+- type: sftp
+- host: gadi.nci.org.au
+- user: dt9853
+- pass: *** ENCRYPTED ***
+- ask_password: true
+- shell_type: unix
+- known_hosts_file: ~/.ssh/known_hosts
+```
+pw: same as gadi
+
+- example commands after intallation and config setup
+```bash
+rclone lsd gadi:/
+rclone mkdir gadi:/home/566/dt9853/rclonetest
+rclone ls gadi:/scratch/dz70/dt9853/projects/20250408_P53sra_AlanaWelm_RNAseq/nf_RNAseq/outs/star_salmon/bams
+```
+
+- made mountpoint on mac with rclone
+- just mounting /scratch
+```bash
+mkdir -p ~/gadi_rclone_mount/scratch_dz70_projects
+cd  ~/gadi_rclone_mount/scratch_dz70_projects
+
+rclone mount gadi:/scratch/dz70/dt9853/projects/ ~/gadi_rclone_mount/scratch_dz70_projects
+
+```
+- got this error message from FUSE
+"Please open the Privacy & Security System Settings and allow loading system software from developer "Benjamin Fleischer". "
+- had to change systems settings, following prompts, this also required a reboot of the mac in recovery mode/security utility to allow apps from developers (this was tedious)
+
