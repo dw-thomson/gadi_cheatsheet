@@ -277,3 +277,68 @@ rclone mount gadi:/scratch/dz70/dt9853/projects/ ~/gadi_rclone_mount/scratch_dz7
 "Please open the Privacy & Security System Settings and allow loading system software from developer "Benjamin Fleischer". "
 - had to change systems settings, following prompts, this also required a reboot of the mac in recovery mode/security utility to allow apps from developers (this was tedious)
 
+
+# Rstudio with gadi
+- adapted from Elyssa's notes
+
+# Setting up my R 4.2 to try out some multi-omics clustering analysis options on Gadi
+
+```bash
+# needed to do the following to overcome a compiling related error:
+#mkdir /scratch/[PROJECT]/[USER]/.R
+mkdir /scratch/dz70/dt9853/.R
+nano /scratch/dz70/dt9853/.R/Makevars
+## add the following line and save file;
+CXXFLAGS += -wd308
+
+# Set up a user specific R_Lib
+# something like this:
+#mkdir /g/data/[PROJECT]/[USER]/R_Libs
+#mkdir /g/data/[PROJECT]/[USER]/R_Libs/[R.VERSION]
+mkdir /g/data/dz70/dt9853/Compute_Assets/Software/R_Libs/
+mkdir  /g/data/dz70/dt9853/Compute_Assets/Software/R_Libs/4.2.1
+
+# set user specific dir for RStudio server session temp data
+# this prevents the default home directory from getting full and running out of storage as it only has 10Gb allocated.
+#mkdir /scratch/[PROJECT]/[USER]/xdg_data_home
+mkdir /scratch/dz70/dt9853/xdg_data_home
+
+## need to load specific version of the intel compiler to be compatible with your R version
+module load R/4.2.1
+module load intel-compiler/2021.6.0
+
+#Start R 
+R
+
+#setup your .libPath() so R can see both the shared library and your personal user R library
+## see default libPath;
+.libPaths()
+## Add your user specific libPath;
+.libPaths(c("/g/data/dz70/dt9853/Compute_Assets/Software/R_Libs/4.2.1", "/apps/R/4.2.1/lib64/R/library"))
+R_MAKEVARS_USER <- "/scratch/dz70/dt9853/.R/Makevars"
+
+## Install packages
+## installing requirements for shinyngs
+install.packages("remotes")
+install.packages("markdown")
+remotes::install_github("pinin4fjords/shinyngs")
+
+## after sucessful install, quit and save your workspace
+quit()
+
+## respond "y" when promped to save.
+
+# head over to the ARE dashboard and navigate to the RStudio server app
+# https://are.nci.org.au/pun/sys/dashboard > "interactive apps" > "RStudio"
+#in "Advanced Options"; under the "Modules" heading you can add a space-separated list of modules to load, you'll need to load the same version of R you installed your packages to;
+R/4.2.1 intel-compiler/2021.6.0
+
+# Also under the "Environment variables" heading, you can add a space-separated list of environment variables to define (via pbs 'qsub -v') e.g. NAME="VALUE".
+# you will need to specify ther Dirs for your auto generated RStudio session temp data to be written and your R_LIBS_USER for your user specific packages;
+XDG_DATA_HOME="/scratch/dz70/dt9853/xdg_data_home",R_LIBS_USER="/g/data/dz70/dt9853/Compute_Assets/Software/R_Libs/4.2.1"
+
+# make sure project is what you want, e.g. dz70
+# also just incase put your "Jobfs size" as 100GB
+
+# on https://are.nci.org.au, after job is requested, a 'connect to RStudio Server' button appears
+```
