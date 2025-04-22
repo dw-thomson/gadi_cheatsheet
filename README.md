@@ -1,5 +1,7 @@
 # gadi_cheatsheet
 - user guides https://opus.nci.org.au/
+- username and login set up, and project information on https://opus.nci.org.au/
+	- Invited to two projects from Jo, dz70 and tr07
 
 to log in
 ```bash
