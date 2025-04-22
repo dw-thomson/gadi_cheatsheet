@@ -83,7 +83,32 @@ You can also request space on multiple compute nodes by adding the directive -l 
 ```
 The limit on $PBS_JOBFS is 400 GiB.The limit on $PBS_JOBFS is 400 GiB.
 
+example PBS header 1
+```bash
+#!/bin/bash
 
+#PBS -l ncpus=1
+#PBS -l mem=16GB
+#PBS -l jobfs=2GB
+#PBS -q copyq
+#PBS -P tr07
+#PBS -l walltime=24:00:00
+#PBS -l storage
+```
+
+example PBS header 2
+
+```bash
+#PBS -l mem=16GB
+#PBS -l jobfs=2GB
+#PBS -q normal
+#PBS -P dz70
+#PBS -l walltime=10:00:00
+#PBS -l storage=scratch/tr07+gdata/dz70
+#PBS -l wd
+
+
+```
 # mass data
 Tape Filesystem - massdata
 
