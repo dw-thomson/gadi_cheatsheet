@@ -184,6 +184,25 @@ nextflow run nf-core/rnaseq \
 > std.out_${JobName}.txt
 
 ```
+- addition config required for running on gadi
+- 
+
+- the institutional config set most of the environment, but extra parameters need to be set with this
+- Documentation : https://github.com/nf-core/configs/blob/master/docs/nci_gadi.md
+```
+process {
+  executor = 'pbspro'
+  queue = 'normal'
+  project = 'dz70'
+  storage = 'scratch/dz70+gdata/dz70'
+       
+  withName: 'task1' {
+    cpus = 2
+    time = '1d'
+    memory = '8GB'
+  }
+}
+```
 
 
 
@@ -338,7 +357,11 @@ R/4.2.1 intel-compiler/2021.6.0
 XDG_DATA_HOME="/scratch/dz70/dt9853/xdg_data_home",R_LIBS_USER="/g/data/dz70/dt9853/Compute_Assets/Software/R_Libs/4.2.1"
 
 # make sure project is what you want, e.g. dz70
+# scratch/dz70+gdata/dz70
 # also just incase put your "Jobfs size" as 100GB
 
 # on https://are.nci.org.au, after job is requested, a 'connect to RStudio Server' button appears
+
+# should be able to see the job submitted by PBS
+qstat
 ```
