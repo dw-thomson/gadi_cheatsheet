@@ -121,7 +121,32 @@ mdss get
 mdss mkdir
 mdss rmdir
 ```
+some examples
 
+```bash
+mdss -P tr07 ls -lh Nanopore_Level_1
+```
+
+running mdss get as a PBS job on copyq
+```bash
+#!/bin/bash
+
+#PBS -l ncpus=1
+#PBS -l mem=16GB
+#PBS -l jobfs=2GB
+#PBS -q copyq
+#PBS -P tr07
+#PBS -l walltime=10:00:00
+#PBS -l storage=massdata/tr07+scratch/dz70
+#PBS -l wd
+
+cd /scratch/dz70/dt9853/from_mdss/Nanopore_Level_1
+
+mdss -P tr07 get -r Nanopore_Level_1/raw_data
+
+echo "finished 1"
+
+```
 # check storage
 
 ```
