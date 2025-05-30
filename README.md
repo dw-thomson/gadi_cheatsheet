@@ -390,3 +390,10 @@ XDG_DATA_HOME="/scratch/dz70/dt9853/xdg_data_home",R_LIBS_USER="/g/data/dz70/dt9
 # should be able to see the job submitted by PBS
 qstat
 ```
+
+# Data Mover Node
+- copying data using the gadi data mover node example
+
+```bash
+scp -v dt9853@gadi-dm.nci.org.au:/scratch/dz70/dt9853/for_filesender/Hi-C_Level_1.tar ./
+```
