@@ -275,6 +275,23 @@ persistent-sessions kill <uuid>
 ls -l  ~/.persistent-sessions/
 
 ```
+- debugging 
+- I had the following error
+```
+ssh: Could not resolve hostname atacseq.dt9853.dz70.ps.gadi.nci.org.au: Name or service not known
+```
+- found this from the help page
+```
+The first time you connect to a session you will see SSH configuring the host key for the session. This will not happen on future connections.
+The SSH configuration on Gadi will automatically select the appropriate SSH keys and ports to connect to your persistent session. For more advanced users, if you have edited your SSH configuration file ensure that you do not have configuration in your own ~/.ssh/config file on Gadi that may prevent this working correctly.
+```
+
+
+
+
+
+
+
 
 # setting up rclone
 - followed these instructions
