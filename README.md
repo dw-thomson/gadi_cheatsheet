@@ -442,3 +442,18 @@ qstat
 ```bash
 scp -v dt9853@gadi-dm.nci.org.au:/scratch/dz70/dt9853/for_filesender/Hi-C_Level_1.tar ./
 ```
+
+# GADI scratch expiry commands
+- scratch deletes every 3 months,
+- warnings are given when you log in
+- here are some commands to check
+
+```bash
+nci-file-expiry list-warnings --help
+
+nci-file-expiry list-quarantined --help
+
+nci-file-expiry recover --help
+
+nci-file-expiry status --help
+```
