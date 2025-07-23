@@ -228,8 +228,36 @@ process {
   }
 }
 ```
+# nextflow 137 memory errors
+- Reference https://nf-co.re/rnaseq/3.11.0/docs/usage
+- a few ways to get around memory issues
+- eg  
+```
+Process `NFCORE_RNASEQ:RNASEQ:BAM_RSEQC:RSEQC_READDUPLICATION (25-03926)` terminated with an error exit status (137)
+```
+1. fix with a global parameter --max_memory 256.GB *default 128.GB
+2. exclude the process if possible (if it's just a qc step), only available for some pipelines
+```
+--rseqc_modules bam_stat,inner_distance,infer_experiment,junction_annotation,junction_saturation,read_distribution
+--skip_rseqc
+```
+3. specify another config requesting more resources for that particular config
+- e.g. using the -c command
+```
+process {
+    withName: 'NFCORE_RNASEQ:RNASEQ:ALIGN_STAR:STAR_ALIGN' {
+        memory = 100.GB
+    }
+}
+```
 
+A few mays to identify the memory usage of a process and that this is what is causing the failure
 
+1. 137 error
+2. gadi-nf-core-trace- file output the memory usage of a failed processes
+3. qstat -a   ; this prints the max memory usage of each running process
+4. the parameter documentation on nf-core
+5. the git repo of that nf-core pipeline, pulled to .nextflow
 
 # Setting default project
 modify ~/.config/gadi-login.conf
