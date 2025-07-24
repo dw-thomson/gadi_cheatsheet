@@ -228,14 +228,18 @@ process {
   }
 }
 ```
+
+# nf-core_setup_gadi SampleSheets
+- I've noticed soft links can be a problem, specify absolute path to avoid
+ 
 # nextflow 137 memory errors
 - Reference https://nf-co.re/rnaseq/3.11.0/docs/usage
-- a few ways to get around memory issues
+- a few ways to get around memory issues when they come up
 - eg  
 ```
 Process `NFCORE_RNASEQ:RNASEQ:BAM_RSEQC:RSEQC_READDUPLICATION (25-03926)` terminated with an error exit status (137)
 ```
-1. fix with a global parameter --max_memory 256.GB *default 128.GB
+1. fix with a global parameter e.g. --max_memory 256.GB *default 128.GB
 2. exclude the process if possible (if it's just a qc step), only available for some pipelines
 ```
 --rseqc_modules bam_stat,inner_distance,infer_experiment,junction_annotation,junction_saturation,read_distribution
@@ -251,7 +255,7 @@ process {
 }
 ```
 
-A few mays to identify the memory usage of a process and that this is what is causing the failure
+A few ways to identify the memory usage of a process and that this is what is causing the failure
 
 1. 137 error
 2. gadi-nf-core-trace- file output the memory usage of a failed processes
@@ -309,12 +313,22 @@ ls -l  ~/.persistent-sessions/
 ssh: Could not resolve hostname atacseq.dt9853.dz70.ps.gadi.nci.org.au: Name or service not known
 ```
 - found this from the help page
+- but the suggestion didn't work
 ```
 The first time you connect to a session you will see SSH configuring the host key for the session. This will not happen on future connections.
 The SSH configuration on Gadi will automatically select the appropriate SSH keys and ports to connect to your persistent session. For more advanced users, if you have edited your SSH configuration file ensure that you do not have configuration in your own ~/.ssh/config file on Gadi that may prevent this working correctly.
 ```
-
-
+- what worked for me was changing the read permission to my ~/.ssh/known_hosts file, I noticed that they were
+```
+# they were
+-rw------- 1 dt9853 U.Adel  240 Jul 24 15:21 known_hosts
+# changed to 
+-rw-r--r-- 1 dt9853 U.Adel  240 Jul 24 15:21 known_hosts
+```
+```bash
+chmod a+r ~/.ssh/known_hosts
+```
+- this worked, after I deleted my old known_hosts file, I got a scare root 'man in the middle' attack message firstly
 
 
 
