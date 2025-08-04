@@ -1,5 +1,6 @@
 # gadi_cheatsheet
 - user guides https://opus.nci.org.au/
+- user guides https://opus.nci.org.au/spaces/Help/pages/236880086/Gadi+Resources...
 - username and login set up, and project information on https://opus.nci.org.au/
 	- Invited to two projects from Jo, dz70 and tr07
 
@@ -8,9 +9,10 @@ to log in
 ssh dt9853@gadi.nci.org.au
 ```
 
-check disk space allocation
+check disk space allocation \ quota
 ```bash
 nci_account
+lquota
 ```
 The home directory does not have much disk space
 ```
