@@ -473,3 +473,11 @@ nci-file-expiry recover --help
 
 nci-file-expiry status --help
 ```
+
+# INODE quote reached?
+- here's a script to list and sort number of files
+- to find where the INODE quota is going
+
+```bash
+ find . -type d |  while    read line  ; do    echo "$( find "$line" -maxdepth 1 | wc -l) $line"  ; done |  sort -rn | less
+```
