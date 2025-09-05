@@ -2,11 +2,11 @@
 - user guides https://opus.nci.org.au/
 - user guides https://opus.nci.org.au/spaces/Help/pages/236880086/Gadi+Resources...
 - username and login set up, and project information on https://opus.nci.org.au/
-	- Invited to two projects from Jo, dz70 and tr07
+	- need to be invited to projects
 
 to log in
 ```bash
-ssh dt9853@gadi.nci.org.au
+ssh [user]@gadi.nci.org.au
 ```
 
 check disk space allocation \ quota
@@ -21,13 +21,13 @@ The home directory does not have much disk space
 Jobs submitted from the /scratch directory
 files are deleted every 3 months
 ```
-/scratch/tr07/dt9853/
+/scratch/dz70/
 ```
 project specific drive, for data storage
 ```
-/g/data/tr07
+/g/data/dz70
 ```
-the project code, is how billing is determined, I've been given access to two groups
+the project code, is how billing is determined, I have access to two groups
 ```bash
 id
 uid=23676(dt9853) gid=9174(tr07) groups=9174(tr07),566(U.Adel),9906(dz70)
@@ -93,7 +93,7 @@ example PBS header 1
 #PBS -l mem=16GB
 #PBS -l jobfs=2GB
 #PBS -q copyq
-#PBS -P tr07
+#PBS -P dz70
 #PBS -l walltime=24:00:00
 #PBS -l storage
 ```
@@ -166,14 +166,14 @@ nci_account -P tr07
 running nf-core
 
 - needs to run on /scratch , not home or gdata
-- softlinks to data (e.g. fastqs, or references) not on scratch fail
-- screen doesn't seems to work properly between different login nodes.
-- I've been kicking of nextflow screipts via a pbs script submitted to the copyq queeue, since only the login/head nodes have internet access to pull down
-- singularity cache dir, was set up on ~/ but this filled up very quick, 
-- .nextflow directory with nf-core assets is still ~/.nextflow
+- softlinks to data (e.g. fastqs, or references) not on scratch fail, unless you give them access
+- screen work properly between different login nodes, screen works with persistent sessions.
+- I've also been kicking of nextflow screipts via a pbs script submitted to the copyq queeue, since only the login/head nodes have internet access to pull down
+- singularity cache dir, was set up on ~/ but this filled up very quick, need to change this
+- .nextflow directory with nf-core assets is default ~/.nextflow
 - module load nextflow singularity
 
-- example kickoff script
+- example kickoff script, if running with PBS job, but if using 'screen' with 'persistent sessions' the PBS header isn't needed
 qsub run.pbs.sh
 
 ```
@@ -291,6 +291,8 @@ mv -v /scratch/tr07/ /g/data/dz70/
 # persistent sessions
 - a substitute for screen on gadi, for long running jobs with little memory
 - help page https://opus.nci.org.au/spaces/Help/pages/241927941/Persistent+Sessions...
+- you can think of this as a 'log-in' node, where unix is set up differently to not have the same 'sigup' errors when running screen.
+- I moved to using this routinely for nextflow jobs, setting up one persistaent session log in node, and logging into it each time
 
 ```bash
 # Starting Sessions
@@ -331,10 +333,6 @@ The SSH configuration on Gadi will automatically select the appropriate SSH keys
 chmod a+r ~/.ssh/known_hosts
 ```
 - this worked, after I deleted my old known_hosts file, I got a scare root 'man in the middle' attack message firstly
-
-
-
-
 
 
 # setting up rclone
