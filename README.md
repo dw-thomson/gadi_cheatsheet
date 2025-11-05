@@ -479,3 +479,25 @@ nci-file-expiry status --help
 ```bash
  find . -type d |  while    read line  ; do    echo "$( find "$line" -maxdepth 1 | wc -l) $line"  ; done |  sort -rn | less
 ```
+
+# mounting HPC to mac using sshfs
+- on mac download macfuse and sshfs https://macfuse.github.io/
+```bash
+mkdir /tmp/sshfs
+cd /tmp/sshfs
+# sshfs username@remote:/remote/directory /mount/point
+sshfs dt9853@gadi.nci.org.au:/scratch/dz70/dt9853/projects/20250508_CDK46_HiC .
+```
+
+- I got a warning
+```
+Please open the Privacy & Security System Settings and allow loading system software from developer "Benjamin Fleischer". A restart might be required before the system extension can be loaded.
+
+Then try mounting the volume again.
+```
+- needed to follow prompts to change system settings but it worked fine.
+
+- need to unmount after use
+```bash
+sudo umount -f /tmp/sshfs
+```
