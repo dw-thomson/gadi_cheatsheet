@@ -420,6 +420,11 @@ R
 .libPaths(c("/g/data/dz70/dt9853/Compute_Assets/Software/R_Libs/4.4.2", "/apps/R/4.4.2/lib64/R/library"))
 R_MAKEVARS_USER <- "/scratch/dz70/dt9853/.R/Makevars"
 
+## made sure ENV veriable are the same 
+Sys.getenv()
+Sys.setenv(R_LIBS_USER="/g/data/dz70/dt9853/Compute_Assets/Software/R_Libs/4.4.2")
+Sys.setenv(XDG_DATA_HOME="/scratch/dz70/dt9853/xdg_data_home")
+
 ## Install packages
 ## installing requirements for shinyngs
 install.packages("remotes")
