@@ -407,7 +407,7 @@ mkdir  /g/data/dz70/dt9853/Compute_Assets/Software/R_Libs/4.2.1
 mkdir /scratch/dz70/dt9853/xdg_data_home
 
 ## need to load specific version of the intel compiler to be compatible with your R version
-module load R/4.2.1
+module load R/4.4.2
 module load intel-compiler/2021.6.0
 
 #Start R 
@@ -417,7 +417,7 @@ R
 ## see default libPath;
 .libPaths()
 ## Add your user specific libPath;
-.libPaths(c("/g/data/dz70/dt9853/Compute_Assets/Software/R_Libs/4.2.1", "/apps/R/4.2.1/lib64/R/library"))
+.libPaths(c("/g/data/dz70/dt9853/Compute_Assets/Software/R_Libs/4.4.2", "/apps/R/4.4.2/lib64/R/library"))
 R_MAKEVARS_USER <- "/scratch/dz70/dt9853/.R/Makevars"
 
 ## Install packages
@@ -425,6 +425,11 @@ R_MAKEVARS_USER <- "/scratch/dz70/dt9853/.R/Makevars"
 install.packages("remotes")
 install.packages("markdown")
 remotes::install_github("pinin4fjords/shinyngs")
+## installing requirements for NanoMethViz
+if (!requireNamespace("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
+BiocManager::install("NanoMethViz")
+
 
 ## after sucessful install, quit and save your workspace
 quit()
