@@ -383,8 +383,7 @@ rclone mount gadi:/scratch/dz70/dt9853/projects/ ~/gadi_rclone_mount/scratch_dz7
 
 # Rstudio with gadi
 - adapted from Elyssa's notes
-
-# Setting up my R 4.2 to try out some multi-omics clustering analysis options on Gadi
+- to run big R jobs (e.g. I'm setting it up for NanoMethyViz
 
 ```bash
 # needed to do the following to overcome a compiling related error:
@@ -407,11 +406,12 @@ mkdir /g/data/dz70/dt9853/Compute_Assets/Software/R_Libs/4.5.0
 mkdir /scratch/dz70/dt9853/xdg_data_home
 
 ## need to load specific version of the intel compiler to be compatible with your R version
-#module load R/4.5.0
+module load R/4.5.0
 #module load R/4.4.2
-module load R/4.2.1
+#module load R/4.2.1
 #module load intel-compiler/2021.6.0
 module load intel-compiler-llvm/2025.2.0
+module load intel-mkl/2025.2.0 # this got over some issues
 
 #Start R 
 R
@@ -421,17 +421,15 @@ R
 .libPaths()
 ## Add your user specific libPath;
 #.libPaths(c("/g/data/dz70/dt9853/Compute_Assets/Software/R_Libs/4.4.2", "/apps/R/4.4.2/lib64/R/library"))
-#.libPaths(c("/g/data/dz70/dt9853/Compute_Assets/Software/R_Libs/4.5.0", "/apps/R/4.5.0/lib64/R/library"))
-.libPaths(c("/g/data/dz70/dt9853/Compute_Assets/Software/R_Libs/4.2.1", "/apps/R/4.2.1/lib64/R/library"))
+#.libPaths(c("/g/data/dz70/dt9853/Compute_Assets/Software/R_Libs/4.2.1", "/apps/R/4.2.1/lib64/R/library"))
+.libPaths(c("/g/data/dz70/dt9853/Compute_Assets/Software/R_Libs/4.5.0", "/apps/R/4.5.0/lib64/R/library"))
+
 R_MAKEVARS_USER <- "/scratch/dz70/dt9853/.R/Makevars"
-
-
 
 ## made sure ENV veriable are the same # this bit might not be necessary
 Sys.getenv()
 #Sys.setenv(R_LIBS_USER="/g/data/dz70/dt9853/Compute_Assets/Software/R_Libs/4.4.2")
-Sys.setenv(R_LIBS_USER="/g/data/dz70/dt9853/Compute_Assets/Software/R_Libs/4.2.1")
-Sys.setenv(XDG_DATA_HOME="/scratch/dz70/dt9853/xdg_data_home")
+#Sys.setenv(XDG_DATA_HOME="/scratch/dz70/dt9853/xdg_data_home")
 
 ## Install packages
 ## can directly specify library path
