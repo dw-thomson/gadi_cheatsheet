@@ -400,16 +400,18 @@ CXXFLAGS += -wd308
 #mkdir /g/data/[PROJECT]/[USER]/R_Libs/[R.VERSION]
 mkdir /g/data/dz70/dt9853/Compute_Assets/Software/R_Libs/
 mkdir  /g/data/dz70/dt9853/Compute_Assets/Software/R_Libs/4.2.1
-
+mkdir /g/data/dz70/dt9853/Compute_Assets/Software/R_Libs/4.5.0
 # set user specific dir for RStudio server session temp data
 # this prevents the default home directory from getting full and running out of storage as it only has 10Gb allocated.
 #mkdir /scratch/[PROJECT]/[USER]/xdg_data_home
 mkdir /scratch/dz70/dt9853/xdg_data_home
 
 ## need to load specific version of the intel compiler to be compatible with your R version
+#module load R/4.5.0
 #module load R/4.4.2
 module load R/4.2.1
-module load intel-compiler/2021.6.0
+#module load intel-compiler/2021.6.0
+module load intel-compiler-llvm/2025.2.0
 
 #Start R 
 R
@@ -419,29 +421,29 @@ R
 .libPaths()
 ## Add your user specific libPath;
 #.libPaths(c("/g/data/dz70/dt9853/Compute_Assets/Software/R_Libs/4.4.2", "/apps/R/4.4.2/lib64/R/library"))
+#.libPaths(c("/g/data/dz70/dt9853/Compute_Assets/Software/R_Libs/4.5.0", "/apps/R/4.5.0/lib64/R/library"))
 .libPaths(c("/g/data/dz70/dt9853/Compute_Assets/Software/R_Libs/4.2.1", "/apps/R/4.2.1/lib64/R/library"))
 R_MAKEVARS_USER <- "/scratch/dz70/dt9853/.R/Makevars"
 
 
 
-## made sure ENV veriable are the same 
+## made sure ENV veriable are the same # this bit might not be necessary
 Sys.getenv()
-Sys.setenv(R_LIBS_USER="/g/data/dz70/dt9853/Compute_Assets/Software/R_Libs/4.4.2")
+#Sys.setenv(R_LIBS_USER="/g/data/dz70/dt9853/Compute_Assets/Software/R_Libs/4.4.2")
+Sys.setenv(R_LIBS_USER="/g/data/dz70/dt9853/Compute_Assets/Software/R_Libs/4.2.1")
 Sys.setenv(XDG_DATA_HOME="/scratch/dz70/dt9853/xdg_data_home")
 
 ## Install packages
+## can directly specify library path
 ## installing requirements for shinyngs
 install.packages("remotes")
 install.packages("markdown")
 remotes::install_github("pinin4fjords/shinyngs")
-## installing requirements for NanoMethViz
-if (!requireNamespace("BiocManager", quietly = TRUE))
-  install.packages("BiocManager")
-BiocManager::install("NanoMethViz")
+## installing requirements for NanoMethVid
 BiocManager::install("dmrseq")
 BiocManager::install("plyranges")
 install.packages("dplyr")
-install.packages("readr")
+
 
 ## after sucessful install, quit and save your workspace
 quit()
