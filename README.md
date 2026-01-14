@@ -519,3 +519,10 @@ Then try mounting the volume again.
 ```bash
 sudo umount -f /tmp/sshfs
 ```
+
+# if89 biocommons resources and module files
+```bash
+module use /g/data/if89/apps/modulefiles/
+module avail
+module load Miniconda3/4.12.0
+```
