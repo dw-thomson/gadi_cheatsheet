@@ -382,30 +382,26 @@ rclone mount gadi:/scratch/dz70/dt9853/projects/ ~/gadi_rclone_mount/scratch_dz7
 
 
 # Rstudio with gadi
-- adapted from Elyssa's notes
 - to run big R jobs (e.g. I'm setting it up for NanoMethyViz
+- adapted from Elyssa's notes
 
 ```bash
-# needed to do the following to overcome a compiling related error:
-#mkdir /scratch/[PROJECT]/[USER]/.R
+# needed to do the following to overcome compiling related error:
 mkdir /scratch/dz70/dt9853/.R
 nano /scratch/dz70/dt9853/.R/Makevars
 ## add the following line and save file;
 CXXFLAGS += -wd308
 
 # Set up a user specific R_Lib
-# something like this:
-#mkdir /g/data/[PROJECT]/[USER]/R_Libs
-#mkdir /g/data/[PROJECT]/[USER]/R_Libs/[R.VERSION]
-mkdir /g/data/dz70/dt9853/Compute_Assets/Software/R_Libs/
-mkdir  /g/data/dz70/dt9853/Compute_Assets/Software/R_Libs/4.2.1
-mkdir /g/data/dz70/dt9853/Compute_Assets/Software/R_Libs/4.5.0
+#mkdir -p  /g/data/dz70/dt9853/Compute_Assets/Software/R_Libs/4.2.1
+mkdir -p /g/data/dz70/dt9853/Compute_Assets/Software/R_Libs/4.5.0
 # set user specific dir for RStudio server session temp data
 # this prevents the default home directory from getting full and running out of storage as it only has 10Gb allocated.
-#mkdir /scratch/[PROJECT]/[USER]/xdg_data_home
 mkdir /scratch/dz70/dt9853/xdg_data_home
 
 ## need to load specific version of the intel compiler to be compatible with your R version
+## find the right R version and intel compiler
+module avail | grep R
 module load R/4.5.0
 #module load R/4.4.2
 #module load R/4.2.1
