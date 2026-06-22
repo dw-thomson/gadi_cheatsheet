@@ -444,22 +444,19 @@ quit()
 
 ## respond "y" when promped to save.
 
-# head over to the ARE dashboard and navigate to the RStudio server app
+# go ARE dashboard and navigate to the RStudio server app
 # https://are.nci.org.au/pun/sys/dashboard > "interactive apps" > "RStudio"
-#in "Advanced Options"; under the "Modules" heading you can add a space-separated list of modules to load, you'll need to load the same version of R you installed your packages to;
-R/4.4.2 intel-compiler/2021.6.0
-
-# Also under the "Environment variables" heading, you can add a space-separated list of environment variables to define (via pbs 'qsub -v') e.g. NAME="VALUE".
-# you will need to specify ther Dirs for your auto generated RStudio session temp data to be written and your R_LIBS_USER for your user specific packages;
-XDG_DATA_HOME="/scratch/dz70/dt9853/xdg_data_home",R_LIBS_USER="/g/data/dz70/dt9853/Compute_Assets/Software/R_Libs/4.4.2"
-
-# make sure project is what you want, e.g. dz70
-# scratch/dz70+gdata/dz70
-
-# also just incase put your "Jobfs size" as 100GB
+# example settings
+**Walltime** = 8
+**Queue** = normalbw
+**Compute Size** = Medium
+**Storage** = scratch/dz70+gdata/dz70
+#in "Advanced Options";
+**Modules** = R/4.5.0 intel-compiler-llvm/2025.2.0 intel-mkl/2025.2.0
+**Environment variables** = XDG_DATA_HOME="/scratch/dz70/dt9853/xdg_data_home",R_LIBS_USER="/g/data/dz70/dt9853/Compute_Assets/Software/R_Libs/4.5.0/",
+**Jobfs** = 100G
 
 # on https://are.nci.org.au, after job is requested, a 'connect to RStudio Server' button appears
-
 # should be able to see the job submitted by PBS
 qstat
 ```
