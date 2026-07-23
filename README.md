@@ -454,6 +454,7 @@ quit()
 #in "Advanced Options";
 **Modules** = R/4.5.0 intel-compiler-llvm/2025.2.0 intel-mkl/2025.2.0
 **Environment variables** = XDG_DATA_HOME="/scratch/dz70/dt9853/xdg_data_home",R_LIBS_USER="/g/data/dz70/dt9853/Compute_Assets/Software/R_Libs/4.5.0/",
+**Environment variables** = XDG_DATA_HOME="/scratch/dz70/dt9853/xdg_data_home",R_LIBS_USER="/g/data/dz70/dt9853/Compute_Assets/Software/R_Libs/4.5.0/","SINGULARITY_CACHEDIR=/scratch/dz70/$USER/singularity_cache","SINGULARITY_TMPDIR=/scratch/dz70/$USER/singularity_tmp"
 **Jobfs** = 100G
 
 # on https://are.nci.org.au, after job is requested, a 'connect to RStudio Server' button appears
