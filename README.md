@@ -520,3 +520,53 @@ module use /g/data/if89/apps/modulefiles/
 module avail
 module load Miniconda3/4.12.0
 ```
+
+# creating python environment on Gadi and installing libraries
+- I'm installing the dovetail HiC analysis package
+- https://dovetail-analysis.readthedocs.io/en/latest/
+
+- create conda environment
+```bash
+conda create --prefix /g/data/dz70/dt9853/dovetail_env python=3.10
+
+conda activate /g/data/dz70/dt9853/dovetail_env
+
+```
+- install dependencies within that environment, as detailed in installation instructions
+- https://dovetail-analysis.readthedocs.io/en/latest/data_processing/before_you_begin.html
+- some of these are available as modules on gadi already, but I'm also installing them with conda/pip to save having to do module load
+- most are available via bioconda
+```bash
+conda config --add channels bioconda
+conda config --add channels conda-forge
+#pysam
+conda install pysam
+
+#tabulate
+pip install tabulate
+
+#bedtools
+conda install -c bioconda bedtools
+
+#deeptools
+conda install bioconda::deeptools
+
+# matplotlib
+conda install matplotlib
+
+#bwa
+conda install bioconda::bwa
+
+#pairtools
+conda install bioconda::pairtools
+
+#samtools
+conda install bioconda::samtools
+
+#preseq
+conda install bioconda::preseq
+```
+Install dovetail package
+```bash
+git clone https://github.com/dovetail-genomics/Dovetail-Analysis.git
+```
